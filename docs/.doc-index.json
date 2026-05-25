@@ -1,0 +1,102 @@
+{
+	"docs/architecture/system-overview.md": {
+		"code_refs": ["scripts/main.gd", "project.godot", "scripts/simulation.gd", "scripts/context_field.gd", "scripts/semantic_dictionary.gd", "scripts/word_node.gd", "scripts/meaning_cloud.gd"],
+		"doc_type": "architecture",
+		"hash": "init"
+	},
+	"docs/architecture/component-wordnode.md": {
+		"code_refs": ["scripts/word_node.gd", "scenes/WordNode.tscn"],
+		"doc_type": "architecture",
+		"hash": "init"
+	},
+	"docs/architecture/component-meaningcloud.md": {
+		"code_refs": ["scripts/meaning_cloud.gd", "scenes/MeaningCloud.tscn", "assets/shaders/cloud_shader.gdshader"],
+		"doc_type": "architecture",
+		"hash": "init"
+	},
+	"docs/architecture/component-contextfield.md": {
+		"code_refs": ["scripts/context_field.gd"],
+		"doc_type": "architecture",
+		"hash": "init"
+	},
+	"docs/architecture/component-simulation.md": {
+		"code_refs": ["scripts/simulation.gd"],
+		"doc_type": "architecture",
+		"hash": "init"
+	},
+	"docs/architecture/component-semanticdictionary.md": {
+		"code_refs": ["scripts/semantic_dictionary.gd", "data/meanings_ru.json"],
+		"doc_type": "architecture",
+		"hash": "init"
+	},
+	"docs/architecture/diagrams/overview.md": {
+		"code_refs": ["scripts/", "scenes/", "data/"],
+		"doc_type": "diagram",
+		"hash": "init"
+	},
+	"docs/guides/getting-started.md": {
+		"code_refs": ["project.godot", "scripts/simulation.gd", "scripts/context_field.gd", "data/meanings_ru.json"],
+		"doc_type": "guide",
+		"hash": "init"
+	},
+	"docs/codebase-guide.md": {
+		"code_refs": ["scripts/", "scenes/", "data/"],
+		"doc_type": "guide",
+		"hash": "init"
+	},
+	"docs/conventions.md": {
+		"code_refs": ["scripts/", "project.godot"],
+		"doc_type": "references",
+		"hash": "init"
+	},
+	"docs/data-layer.md": {
+		"code_refs": ["data/meanings_ru.json", "scripts/semantic_dictionary.gd"],
+		"doc_type": "references",
+		"hash": "init"
+	},
+	"docs/specs/README.md": {
+		"code_refs": [],
+		"doc_type": "spec",
+		"hash": "init"
+	},
+	"docs/specs/template.md": {
+		"code_refs": [],
+		"doc_type": "spec",
+		"hash": "init"
+	},
+	"docs/adr/README.md": {
+		"code_refs": [],
+		"doc_type": "adr",
+		"hash": "init"
+	},
+	"docs/adr/template.md": {
+		"code_refs": [],
+		"doc_type": "adr",
+		"hash": "init"
+	},
+	"docs/adr/ADR-001-godot-selection.md": {
+		"code_refs": ["project.godot"],
+		"doc_type": "adr",
+		"hash": "init"
+	},
+	"docs/adr/ADR-002-autoload-refcounted-pattern.md": {
+		"code_refs": ["project.godot", "scripts/simulation.gd", "scripts/word_node.gd", "scripts/meaning_cloud.gd"],
+		"doc_type": "adr",
+		"hash": "init"
+	},
+	"docs/workflows/simulation-loop.md": {
+		"code_refs": ["scripts/simulation.gd", "scripts/main.gd", "scripts/context_field.gd", "scripts/semantic_dictionary.gd"],
+		"doc_type": "workflow",
+		"hash": "init"
+	},
+	"docs/CLAUDE.md": {
+		"code_refs": ["scripts/", "scenes/", "data/", "project.godot"],
+		"doc_type": "config",
+		"hash": "init"
+	},
+	"README.md": {
+		"code_refs": ["project.godot", "scripts/", "data/"],
+		"doc_type": "readme",
+		"hash": "init"
+	}
+}
