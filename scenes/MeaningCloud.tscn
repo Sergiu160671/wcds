@@ -1,15 +1,17 @@
-[gd_scene load_steps=3 format=3 uid="uid://dmcloud00000001"]
+[gd_scene load_steps=4 format=3 uid="uid://dmcloud00000001"]
 
-[ext_resource type="Shader" path="res://assets/shaders/cloud_shader.gdshader" id="1_cloud_shader"]
+[ext_resource type="Script" path="res://scripts/meaning_cloud_view.gd" id="1_meaning_cloud_view"]
+[ext_resource type="Shader" path="res://assets/shaders/cloud_shader.gdshader" id="2_cloud_shader"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_cloud"]
 radius = 40.0
 
 [node name="MeaningCloud" type="Node2D"]
+script = ExtResource("1_meaning_cloud_view")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 material = ShaderMaterial.new()
-material.shader = ExtResource("1_cloud_shader")
+material.shader = ExtResource("2_cloud_shader")
 
 [node name="Area2D" type="Area2D" parent="."]
 
