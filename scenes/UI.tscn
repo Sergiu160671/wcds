@@ -1,0 +1,68 @@
+[gd_scene format=3 uid="uid://dui00000000001"]
+
+[node name="UI" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Panel" type="Panel" parent="."]
+layout_mode = 0
+offset_left = 10.0
+offset_top = 10.0
+offset_right = 310.0
+offset_bottom = 1070.0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Panel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="TitleLabel" type="Label" parent="Panel/VBoxContainer"]
+layout_mode = 2
+text = "SOS Semantic Cloud MVP"
+
+[node name="WordInput" type="LineEdit" parent="Panel/VBoxContainer"]
+layout_mode = 2
+placeholder_text = "Введите слово..."
+
+[node name="AddButton" type="Button" parent="Panel/VBoxContainer"]
+layout_mode = 2
+text = "Добавить слово"
+
+[node name="WordList" type="ItemList" parent="Panel/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="RemoveButton" type="Button" parent="Panel/VBoxContainer"]
+layout_mode = 2
+text = "Удалить слово"
+
+[node name="ContextLabel" type="Label" parent="Panel/VBoxContainer"]
+layout_mode = 2
+text = "Контекст:"
+
+[node name="ContextInput" type="LineEdit" parent="Panel/VBoxContainer"]
+layout_mode = 2
+placeholder_text = "музыка, ремонт..."
+
+[node name="ApplyContextButton" type="Button" parent="Panel/VBoxContainer"]
+layout_mode = 2
+text = "Применить контекст"
+
+[node name="PauseButton" type="Button" parent="Panel/VBoxContainer"]
+layout_mode = 2
+text = "Пауза"
+
+[node name="MetricsLabel" type="Label" parent="Panel/VBoxContainer"]
+layout_mode = 2
+text = "Метрики: --"
+
+[node name="DominantLabel" type="Label" parent="Panel/VBoxContainer"]
+layout_mode = 2
+text = "Доминанта: --"

@@ -1,0 +1,19 @@
+[gd_scene load_steps=3 format=3 uid="uid://dwordnode0000001"]
+
+[ext_resource type="Script" path="res://scripts/word_node.gd" id="1_word_node"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_word"]
+radius = 20.0
+
+[node name="WordNode" type="Node2D"]
+
+[node name="Label" type="Label" parent="."]
+offset_left = -40.0
+offset_top = -30.0
+offset_right = 40.0
+offset_bottom = -10.0
+text = ""
+horizontal_alignment = 1
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_word")
