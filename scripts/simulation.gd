@@ -3,6 +3,9 @@
 ## и «осадков смысла».
 extends Node
 
+signal word_added(word: WordNode)
+signal word_removed(text: String)
+
 var words: Array[WordNode] = []
 var dictionary: SemanticDictionary
 
@@ -14,6 +17,10 @@ const WEIGHT_GROWTH: float = 0.01
 
 func setup(dict: SemanticDictionary) -> void:
 	dictionary = dict
+
+
+func start() -> void:
+	print("[Simulation] Logic engine started.")
 
 
 func add_word(text: String) -> WordNode:
@@ -37,11 +44,13 @@ func add_word(text: String) -> WordNode:
 			)
 
 	words.append(node)
+	word_added.emit(node)
 	return node
 
 
 func remove_word(text: String) -> void:
 	words = words.filter(func(w: WordNode): return w.text != text)
+	word_removed.emit(text)
 
 
 func get_word(text: String) -> WordNode:
