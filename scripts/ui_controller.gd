@@ -1,12 +1,12 @@
 extends Control
 
-@onready var word_input: LineEdit = $Panel/VBoxContainer/WordInput
-@onready var add_button: Button = $Panel/VBoxContainer/AddButton
-@onready var word_list: ItemList = $Panel/VBoxContainer/WordList
-@onready var remove_button: Button = $Panel/VBoxContainer/RemoveButton
-@onready var context_input: LineEdit = $Panel/VBoxContainer/ContextInput
-@onready var apply_context_button: Button = $Panel/VBoxContainer/ApplyContextButton
-@onready var metrics_label: Label = $Panel/VBoxContainer/MetricsLabel
+@onready var word_input: LineEdit = $Panel/ScrollContainer/MarginContainer/VBoxContainer/WordInput
+@onready var add_button: Button = $Panel/ScrollContainer/MarginContainer/VBoxContainer/AddButton
+@onready var word_list: ItemList = $Panel/ScrollContainer/MarginContainer/VBoxContainer/WordList
+@onready var remove_button: Button = $Panel/ScrollContainer/MarginContainer/VBoxContainer/RemoveButton
+@onready var context_input: LineEdit = $Panel/ScrollContainer/MarginContainer/VBoxContainer/ContextInput
+@onready var apply_context_button: Button = $Panel/ScrollContainer/MarginContainer/VBoxContainer/ApplyContextButton
+@onready var metrics_label: Label = $Panel/ScrollContainer/MarginContainer/VBoxContainer/MetricsLabel
 
 func _ready() -> void:
 	add_button.pressed.connect(_on_add_pressed)

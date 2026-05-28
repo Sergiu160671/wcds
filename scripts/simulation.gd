@@ -1,5 +1,6 @@
 ## Simulation — ядро симуляции.
-## Управляет всеми WordNode, циклом обновления, детекцией доминантного смысла
+## Управляет всеми WordNode.
+## Ведёт цикл обновления, детекцию доминантного смысла
 ## и «осадков смысла».
 extends Node
 
@@ -23,15 +24,39 @@ func start() -> void:
 	print("[Simulation] Logic engine started.")
 
 
+func _get_spawn_rect() -> Rect2:
+	var viewport_size := Vector2(1920, 1080)
+	if is_inside_tree() and get_viewport():
+		viewport_size = get_viewport().get_visible_rect().size
+
+	var left_margin: float = 360.0
+	var top_margin: float = 100.0
+	var right_margin: float = 120.0
+	var bottom_margin: float = 100.0
+	var width: float = max(viewport_size.x - left_margin - right_margin, 100.0)
+	var height: float = max(viewport_size.y - top_margin - bottom_margin, 100.0)
+	return Rect2(Vector2(left_margin, top_margin), Vector2(width, height))
+
+
 func add_word(text: String) -> WordNode:
-	var center := Vector2(randf_range(200, 1720), randf_range(200, 880))
+	var spawn_rect := _get_spawn_rect()
+	var center := Vector2(
+		randf_range(spawn_rect.position.x, spawn_rect.position.x + spawn_rect.size.x),
+		randf_range(spawn_rect.position.y, spawn_rect.position.y + spawn_rect.size.y)
+	)
 	var node := WordNode.new(text, center)
 
 	var meanings: Array = dictionary.get_meanings(text)
 
 	if meanings.is_empty():
 		# Fallback: create a single neutral cloud if no dictionary entry
-		node.add_cloud(text, 0.5, 0.8, center + Vector2(randf_range(-30, 30), randf_range(-30, 30)), "neutral")
+		node.add_cloud(
+			text,
+			0.5,
+			0.8,
+			center + Vector2(randf_range(-30, 30), randf_range(-30, 30)),
+			"neutral"
+		)
 	else:
 		for entry in meanings:
 			var offset := Vector2(randf_range(-80, 80), randf_range(-80, 80))
@@ -86,7 +111,7 @@ func _update_weight_and_entropy(cloud: MeaningCloud, ctx: ContextField) -> void:
 	cloud.entropy = minf(cloud.entropy + 0.001, 0.99)
 
 
-func _update_position(cloud: MeaningCloud) -> void:
+func _update_position(_cloud: MeaningCloud) -> void:
 	# Position is updated inside apply_force → apply_force.
 	# Additional drift logic can be added here (e.g. attraction to word center).
 	pass
@@ -98,7 +123,14 @@ func _detect_precipitation(word: WordNode) -> void:
 		return
 
 	if dom.weight > WEIGHT_THRESHOLD and dom.entropy < ENTROPY_THRESHOLD:
-		print("[Precipitation] %-10s → \"%s\" (weight=%.2f entropy=%.2f)" % [word.text, dom.label, dom.weight, dom.entropy])
+		print(
+			"[Precipitation] %-10s → \"%s\" (weight=%.2f entropy=%.2f)" % [
+				word.text,
+				dom.label,
+				dom.weight,
+				dom.entropy
+			]
+		)
 
 
 func render() -> void:

@@ -12,60 +12,91 @@ grow_vertical = 2
 script = ExtResource("1_ui_controller")
 
 [node name="Panel" type="Panel" parent="."]
-layout_mode = 0
+layout_mode = 1
+anchors_preset = 9
+anchor_bottom = 1.0
 offset_left = 10.0
 offset_top = 10.0
-offset_right = 310.0
-offset_bottom = 1070.0
+offset_right = 330.0
+offset_bottom = -10.0
+grow_vertical = 2
 
-[node name="VBoxContainer" type="VBoxContainer" parent="Panel"]
+[node name="ScrollContainer" type="ScrollContainer" parent="Panel"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+horizontal_scroll_mode = 0
 
-[node name="TitleLabel" type="Label" parent="Panel/VBoxContainer"]
+[node name="MarginContainer" type="MarginContainer" parent="Panel/ScrollContainer"]
 layout_mode = 2
-text = "SOS Semantic Cloud MVP"
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
 
-[node name="WordInput" type="LineEdit" parent="Panel/VBoxContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="Panel/ScrollContainer/MarginContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = 10
+
+[node name="TitleLabel" type="Label" parent="Panel/ScrollContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 18
+text = "SOS Semantic Cloud"
+horizontal_alignment = 1
+
+[node name="HSeparator" type="HSeparator" parent="Panel/ScrollContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="WordInput" type="LineEdit" parent="Panel/ScrollContainer/MarginContainer/VBoxContainer"]
 layout_mode = 2
 placeholder_text = "Введите слово..."
 
-[node name="AddButton" type="Button" parent="Panel/VBoxContainer"]
+[node name="AddButton" type="Button" parent="Panel/ScrollContainer/MarginContainer/VBoxContainer"]
 layout_mode = 2
 text = "Добавить слово"
 
-[node name="WordList" type="ItemList" parent="Panel/VBoxContainer"]
+[node name="WordListLabel" type="Label" parent="Panel/ScrollContainer/MarginContainer/VBoxContainer"]
 layout_mode = 2
-size_flags_vertical = 3
+text = "Список слов:"
 
-[node name="RemoveButton" type="Button" parent="Panel/VBoxContainer"]
+[node name="WordList" type="ItemList" parent="Panel/ScrollContainer/MarginContainer/VBoxContainer"]
+custom_minimum_size = Vector2(0, 200)
 layout_mode = 2
-text = "Удалить слово"
 
-[node name="ContextLabel" type="Label" parent="Panel/VBoxContainer"]
+[node name="RemoveButton" type="Button" parent="Panel/ScrollContainer/MarginContainer/VBoxContainer"]
 layout_mode = 2
-text = "Контекст:"
+text = "Удалить выбранное"
 
-[node name="ContextInput" type="LineEdit" parent="Panel/VBoxContainer"]
+[node name="HSeparator2" type="HSeparator" parent="Panel/ScrollContainer/MarginContainer/VBoxContainer"]
 layout_mode = 2
-placeholder_text = "музыка, ремонт..."
 
-[node name="ApplyContextButton" type="Button" parent="Panel/VBoxContainer"]
+[node name="ContextLabel" type="Label" parent="Panel/ScrollContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+text = "Контекстный фильтр:"
+
+[node name="ContextInput" type="LineEdit" parent="Panel/ScrollContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+placeholder_text = "музыка, наука, ремонт..."
+
+[node name="ApplyContextButton" type="Button" parent="Panel/ScrollContainer/MarginContainer/VBoxContainer"]
 layout_mode = 2
 text = "Применить контекст"
 
-[node name="PauseButton" type="Button" parent="Panel/VBoxContainer"]
+[node name="HSeparator3" type="HSeparator" parent="Panel/ScrollContainer/MarginContainer/VBoxContainer"]
 layout_mode = 2
-text = "Пауза"
 
-[node name="MetricsLabel" type="Label" parent="Panel/VBoxContainer"]
+[node name="MetricsLabel" type="Label" parent="Panel/ScrollContainer/MarginContainer/VBoxContainer"]
 layout_mode = 2
 text = "Метрики: --"
+autowrap_mode = 2
 
-[node name="DominantLabel" type="Label" parent="Panel/VBoxContainer"]
+[node name="DominantLabel" type="Label" parent="Panel/ScrollContainer/MarginContainer/VBoxContainer"]
 layout_mode = 2
 text = "Доминанта: --"
+autowrap_mode = 2

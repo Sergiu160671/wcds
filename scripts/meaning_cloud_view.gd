@@ -15,11 +15,11 @@ func _process(_delta: float) -> void:
 		_update_visuals()
 
 func _update_visuals() -> void:
+	if not sprite: return
 	var mat := sprite.material as ShaderMaterial
 	if mat:
 		mat.set_shader_parameter("weight", model.weight)
 		mat.set_shader_parameter("entropy", model.entropy)
-		# Set color based on type
 		var color := Color.WHITE
 		match model.cloud_type:
 			MeaningCloud.CloudType.ABSTRACT: color = Color.CORNFLOWER_BLUE

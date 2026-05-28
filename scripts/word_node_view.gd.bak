@@ -1,26 +1,24 @@
 extends Node2D
 
 var model: WordNode
-var cloud_scene := load("res://scenes/MeaningCloud.tscn")
+var cloud_scene := preload("res://scenes/MeaningCloud.tscn")
 var cloud_views: Dictionary = {}
 
 @onready var label: Label = $Label
 
 func setup(m: WordNode) -> void:
 	model = m
-	global_position = model.position
 	label.text = model.text
-	label.position = Vector2(-40, -30)
 	for cloud in model.meaning_clusters:
 		_add_cloud_view(cloud)
 
+func _add_cloud_view(cloud_model: MeaningCloud) -> void:
+	var view := cloud_scene.instantiate()
+	add_child(view)
+	view.setup(cloud_model)
+	cloud_views[cloud_model] = view
+
 func _process(_delta: float) -> void:
 	if model:
-		global_position = model.position
-
-func _add_cloud_view(cloud_model: MeaningCloud) -> void:
-	if not cloud_scene: return
-	var view: Node2D = cloud_scene.instantiate()
-	add_child(view)
-	view.call("setup", cloud_model)
-	cloud_views[cloud_model] = view
+		# Sync position if needed, though clouds have their own positions
+		pass

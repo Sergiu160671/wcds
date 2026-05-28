@@ -1,9 +1,14 @@
-[gd_scene load_steps=3 format=3 uid="uid://dmain00000000001"]
+[gd_scene format=3 uid="uid://b3cx584bvrlbc"]
 
-[ext_resource type="Script" path="res://scripts/main.gd" id="1_main"]
-[ext_resource type="PackedScene" uid="uid://dui00000000001" path="res://scenes/UI.tscn" id="2_ui"]
+[ext_resource type="Script" uid="uid://c235a1xvisrhy" path="res://scripts/main.gd" id="1_main"]
+[ext_resource type="PackedScene" uid="uid://cpd1qai7iqvjc" path="res://scenes/UI.tscn" id="2_ui"]
 
-[node name="Main" type="Node"]
+[node name="Main" type="Node" unique_id=366594406]
 script = ExtResource("1_main")
 
-[node name="UI" parent="." instance=ExtResource("2_ui")]
+[node name="UI" parent="." unique_id=779023411 instance=ExtResource("2_ui")]
+anchors_preset = -1
+anchor_right = 0.28800002
+anchor_bottom = 1.6330001
+offset_right = 1140.2
+offset_bottom = -0.18408203
