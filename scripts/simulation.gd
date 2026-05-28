@@ -6,9 +6,13 @@ extends Node
 
 signal word_added(word: WordNode)
 signal word_removed(text: String)
+signal precipitation_detected(word: String, meaning: String, weight: float, entropy: float)
 
 var words: Array[WordNode] = []
 var dictionary: SemanticDictionary
+
+var frame_count: int = 0
+var precipitation_log: Array = []
 
 const WEIGHT_THRESHOLD: float = 0.85
 const ENTROPY_THRESHOLD: float = 0.2
@@ -22,6 +26,7 @@ func setup(dict: SemanticDictionary) -> void:
 
 func start() -> void:
 	print("[Simulation] Logic engine started.")
+	print("[Simulation] Dictionary loaded: %d words" % dictionary.word_count())
 
 
 func _get_spawn_rect() -> Rect2:
@@ -57,6 +62,7 @@ func add_word(text: String) -> WordNode:
 			center + Vector2(randf_range(-30, 30), randf_range(-30, 30)),
 			"neutral"
 		)
+		print("[Simulation] Word '%s' not in dictionary. Created neutral cloud." % text)
 	else:
 		for entry in meanings:
 			var offset := Vector2(randf_range(-80, 80), randf_range(-80, 80))
@@ -67,6 +73,7 @@ func add_word(text: String) -> WordNode:
 				center + offset,
 				entry.get("type", "neutral")
 			)
+		print("[Simulation] Added '%s': %d clouds spawned" % [text, meanings.size()])
 
 	words.append(node)
 	word_added.emit(node)
@@ -74,8 +81,16 @@ func add_word(text: String) -> WordNode:
 
 
 func remove_word(text: String) -> void:
+	var removed: bool = false
+	for word in words:
+		if word.text == text:
+			removed = true
+			break
+	
 	words = words.filter(func(w: WordNode): return w.text != text)
-	word_removed.emit(text)
+	if removed:
+		print("[Simulation] Removed word: '%s'" % text)
+		word_removed.emit(text)
 
 
 func get_word(text: String) -> WordNode:
@@ -86,6 +101,7 @@ func get_word(text: String) -> WordNode:
 
 
 func step(ctx: ContextField) -> void:
+	frame_count += 1
 	for word in words:
 		for cloud in word.meaning_clusters:
 			_apply_context_force(cloud, ctx)
@@ -123,8 +139,19 @@ func _detect_precipitation(word: WordNode) -> void:
 		return
 
 	if dom.weight > WEIGHT_THRESHOLD and dom.entropy < ENTROPY_THRESHOLD:
+		var log_entry := {
+			"frame": frame_count,
+			"word": word.text,
+			"meaning": dom.label,
+			"weight": dom.weight,
+			"entropy": dom.entropy,
+			"type": dom.cloud_type
+		}
+		precipitation_log.append(log_entry)
+		precipitation_detected.emit(word.text, dom.label, dom.weight, dom.entropy)
 		print(
-			"[Precipitation] %-10s → \"%s\" (weight=%.2f entropy=%.2f)" % [
+			"[Precipitation] Frame %d: %-10s → \"%s\" (w=%.2f e=%.2f)" % [
+				frame_count,
 				word.text,
 				dom.label,
 				dom.weight,
@@ -145,13 +172,48 @@ func system_metrics() -> Dictionary:
 
 	var total_entropy := 0.0
 	var total_clouds := 0
+	var total_weight := 0.0
 
 	for word in words:
 		total_entropy += word.system_entropy()
 		total_clouds += word.meaning_clusters.size()
+		for cloud in word.meaning_clusters:
+			total_weight += cloud.weight
 
 	return {
 		"word_count": words.size(),
 		"cloud_count": total_clouds,
 		"system_entropy": total_entropy / float(words.size()),
+		"avg_weight": total_weight / float(total_clouds) if total_clouds > 0 else 0.0,
+		"frame": frame_count,
+		"precipitation_count": precipitation_log.size()
+	}
+
+
+func export_state() -> Dictionary:
+	"""Экспортирует состояние симуляции для сохранения."""
+	var words_data: Array = []
+	for word in words:
+		var clouds_data: Array = []
+		for cloud in word.meaning_clusters:
+			clouds_data.append({
+				"label": cloud.label,
+				"position": cloud.position,
+				"weight": cloud.weight,
+				"entropy": cloud.entropy,
+				"type": cloud.cloud_type
+			})
+		words_data.append({
+			"text": word.text,
+			"position": word.position,
+			"clouds": clouds_data
+		})
+	
+	return {
+		"version": "0.1",
+		"frame": frame_count,
+		"timestamp": Time.get_ticks_msec(),
+		"words": words_data,
+		"metrics": system_metrics(),
+		"precipitation_log": precipitation_log
 	}

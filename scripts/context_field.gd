@@ -15,7 +15,8 @@ func configure(dir: Vector2, str_val: float, keywords: Array[String]) -> void:
 	direction = dir.normalized()
 	strength = clampf(str_val, 0.0, 1.0)
 	bias_keywords = keywords.duplicate()
-	print("[ContextField] Wind set → dir=%s strength=%.2f bias=%s" % [direction, strength, bias_keywords])
+	var debug_message := "[ContextField] Wind set → dir=%s strength=%.2f bias=%s"
+	print(debug_message % [direction, strength, bias_keywords])
 
 
 func force_for_cloud(cloud: MeaningCloud) -> Vector2:

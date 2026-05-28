@@ -26,6 +26,7 @@ config/icon="res://assets/icons/icon.svg"
 Simulation="*res://scripts/simulation.gd"
 SemanticDictionary="*res://scripts/semantic_dictionary.gd"
 ContextField="*res://scripts/context_field.gd"
+SaveManager="*res://scripts/save_manager.gd"
 
 [display]
 

@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://rc5qiylmjsax"
-path="res://.godot/imported/wsdc1.jpg-72856b2b57e6ecdf1b2dd8718bf719e8.ctex"
+path="res://.godot/imported/wsdc1.jpg-879f653246dc8bcd8c5d43c7522ac7d5.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://WSDC/wsdc1.jpg"
-dest_files=["res://.godot/imported/wsdc1.jpg-72856b2b57e6ecdf1b2dd8718bf719e8.ctex"]
+source_file="res://WCDS/wsdc1.jpg"
+dest_files=["res://.godot/imported/wsdc1.jpg-879f653246dc8bcd8c5d43c7522ac7d5.ctex"]
 
 [params]
 

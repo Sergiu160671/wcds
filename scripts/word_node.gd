@@ -13,10 +13,23 @@ var meaning_clusters: Array[MeaningCloud] = []
 
 func _init(word_text: String, pos: Vector2) -> void:
 	text = word_text
-	position = pos
+	position = _clamp_position(pos)
 	mass = 1.0
 	uncertainty = 0.5
 	meaning_clusters = []
+
+
+func _clamp_position(pos: Vector2) -> Vector2:
+	"""Ограничивает позицию слова внутри видимой области."""
+	var viewport_size := Vector2(1600, 1140)
+	var margin := 100.0
+	
+	var clamped := Vector2(
+		clampf(pos.x, margin, viewport_size.x - margin),
+		clampf(pos.y, margin, viewport_size.y - margin)
+	)
+	
+	return clamped
 
 
 func dominant_cloud() -> MeaningCloud:
@@ -45,6 +58,12 @@ func system_entropy() -> float:
 	return total / float(meaning_clusters.size())
 
 
-func add_cloud(label: String, weight: float, entropy: float, pos: Vector2, meaning_type: String = "neutral") -> void:
+func add_cloud(
+	label: String,
+	weight: float,
+	entropy: float,
+	pos: Vector2,
+	meaning_type: String = "neutral"
+) -> void:
 	var cloud := MeaningCloud.new(label, weight, entropy, pos, meaning_type)
 	meaning_clusters.append(cloud)
